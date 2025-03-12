@@ -4,8 +4,8 @@ function test(text){
 }
 test('a');
 
-// 익명함수
-testAn = function(text) {
+// arrow function
+testAn = (text) => {
     console.log('testAn' + text);
 }
-testAn('익명함수');
+testAn('arrow function');
