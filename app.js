@@ -3,7 +3,7 @@ const app = express();
 
 const PORT = 3000;
 
-app.get('/', (req, res) => {
+app.post('/api', (req, res) => {
     res.send('Hello, Node.js with Express!');
 });
 
