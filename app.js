@@ -6,8 +6,10 @@ app.use(express.json());
 
 const PORT = 3000;
 
-app.post('/api', (req, res) => {
-    res.send(req.body);
+app.get('/api/:person', (req, res) => {
+    const person = req.params.person;
+    // req.params : 객체
+    res.status(200).send(person);
 });
 
 app.listen(PORT, () => {
