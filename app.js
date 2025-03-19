@@ -1,10 +1,13 @@
-const express = require('express');
+// const express = require('express');
+import express from 'express';
 const app = express();
+
+app.use(express.json());
 
 const PORT = 3000;
 
 app.post('/api', (req, res) => {
-    res.send('Hello, Node.js with Express!');
+    res.send(req.body);
 });
 
 app.listen(PORT, () => {
