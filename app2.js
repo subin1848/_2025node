@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path');
 const mysql = require('mysql2');
 const dotenv = require('dotenv');
+const { send } = require('process');
 
 dotenv.config();
 const app = express();
@@ -44,6 +45,25 @@ app.get('/travel', (req, res) => {
     });
 });
 
+app.get('/travel/:id', (req, res) => {
+    const travelId = req.params.id;
+    const query = 'SELECT * FROM travellist WHERE id = ?';
+    db.query(query, [travelId], (err, results) =>{
+        if(err) {
+            console.error('데이터베이스 쿼리 실패', err);
+            res.status(500).send('Internal Server Error');
+            return;    
+        }
+        if(results.length === 0) {
+            res.status(404).send('여행지를 찾을 수 없습니다.');
+            return;
+        }
+        const travel = results[0];
+        res.render('travelDetail', {travel});
+    })
+})
+
+// 모든 경로 처리하기 때문에 에러가 나더라도 해당 경로로 이동
 app.use((req, res) => {
 
 })
