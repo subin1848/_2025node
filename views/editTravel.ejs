@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>여행지 수정하기</h1>
+    <!-- HTML 코드는 method가 GET과 POST만 지원하기 때문에 그 외의 방식으로 method를 할 땐, 아래와 같은 방식으로 준다 -->
+    <form action="/travel/<%=travel.id%>?_method=PUT" method="POST">
+        <label for="name">
+            여행지 이름 :
+        </label>
+        <input type="text" id="name" name="name" value="<%=travel.name%>" required>
+        <button type="submit">수정</button>
+    </form>
+</body>
+</html>
