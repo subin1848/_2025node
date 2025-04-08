@@ -33,7 +33,7 @@ db.connect((err)=>{
 
 app.get('/', (req, res) => {
 
-})
+});
 
 app.get('/travel', (req, res) => {
     const _query = 'SELECT id, name FROM travellist';
@@ -63,8 +63,8 @@ app.get('/travel/:id', (req, res) => {
         }
         const travel = results[0];
         res.render('travelDetail', {travel});
-    })
-})
+    });
+});
 
 app.post('/travel', (req, res) => {
     const { name } = req.body;
@@ -76,20 +76,31 @@ app.post('/travel', (req, res) => {
             return;
         }
         res.redirect('/travel');
-        // 다른 url 주소로 이동
-    })
-})
+    });
+});
 
 app.get('/add-travel', (req, res) => {
     res.render('addTravel');
-})
-
-
+});
+    
+app.put('/travel/:id', (req, res) =>{
+    const travelId = req.params.id;
+    const { name } = req.body;
+    const _query = 'UPDATE travellist SET name=? WHERE id = ?';
+    db.query(_query, [name, travelId], (err, results) => {
+        if(err) {
+            console.error('데이터베이스 쿼리 실패 : ', err);
+            res.status(500).send('데이터베이스 에러');
+            return;
+        };
+        res.render('updateSuccess');
+    }); 
+});
 
 app.use((req, res) => {
 
-})
+});
 
 app.listen(3000, () => {
     console.log("서버가 3000에서 실행중");
-})
+});
