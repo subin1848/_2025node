@@ -80,7 +80,12 @@ app.post('/travel', (req, res) => {
     })
 })
 
-// 모든 경로 처리하기 때문에 에러가 나더라도 해당 경로로 이동
+app.get('/add-travel', (req, res) => {
+    res.render('addTravel');
+})
+
+
+
 app.use((req, res) => {
 
 })
