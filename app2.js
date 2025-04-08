@@ -7,6 +7,9 @@ const { send } = require('process');
 dotenv.config();
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.set('view engine', 'ejs');
 
 // __dirname 현재 디렉토리의 절대 경로 (C: 까지 나옴)
@@ -60,6 +63,20 @@ app.get('/travel/:id', (req, res) => {
         }
         const travel = results[0];
         res.render('travelDetail', {travel});
+    })
+})
+
+app.post('/travel', (req, res) => {
+    const { name } = req.body;
+    const _query = 'INSERT INTO travellist (name) VALUE (?)';
+    db.query(_query, [name], (err,results) => {
+        if(err) {
+            console.error('데이터베이스 쿼리 실패: ', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.redirect('/travel');
+        // 다른 url 주소로 이동
     })
 })
 
